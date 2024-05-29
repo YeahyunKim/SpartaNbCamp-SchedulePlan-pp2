@@ -1,5 +1,6 @@
 package com.sparta.spartanbcampscheduleplanpp2.entity;
 
+import com.sparta.spartanbcampscheduleplanpp2.dto.ScheduleRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,11 @@ public class Schedule extends Timestamped {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public Schedule(ScheduleRequestDto requestDto, User user) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+        this.password = requestDto.getPassword();
+        this.user = user;
+    }
 }

@@ -37,18 +37,22 @@ public class UserController {
     }
 
     //유저 정보 수정
-    @PutMapping("/user/edit")
-    public UserResponseDto editUser(@RequestParam Long id, @RequestBody UserRequestDto requestDto) {
+    @PutMapping("/user/{id}")
+    public UserResponseDto editUser(@PathVariable Long id, @RequestBody UserRequestDto requestDto) {
         return userService.editUser(id, requestDto);
     }
 
-    @PostMapping("/user/signup")
+    //유저 정보 등록(회원가입)
+    @PostMapping("/user")
     public UserResponseDto signupUser(@RequestBody UserRequestDto requestDto) {
         return userService.signupUser(requestDto);
     }
 
-    @DeleteMapping("/user/delete")
-    public Long deleteUser(@RequestParam Long id) {
+    //유저 정보 삭제
+    @DeleteMapping("/user/{id}")
+    public Long deleteUser(@PathVariable Long id) {
         return userService.deleteUser(id);
     }
+
+
 }

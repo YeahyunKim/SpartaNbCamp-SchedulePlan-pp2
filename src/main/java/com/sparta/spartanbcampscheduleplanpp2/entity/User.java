@@ -26,14 +26,15 @@ public class User extends Timestamped {
     @Column(nullable = false, unique = false)
     private String email;
 
-//    @Column(nullable = false)
-//    @Enumerated(value = EnumType.STRING)
-//    private UserRoleEnum role;
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private UserRoleEnum role;
 
     public User(UserRequestDto requestDto) {
         this.username = requestDto.getUsername();
         this.password = requestDto.getPassword();
         this.email = requestDto.getEmail();
+        this.role = requestDto.getRole();
     }
 
     public void update(UserRequestDto requestDto) {

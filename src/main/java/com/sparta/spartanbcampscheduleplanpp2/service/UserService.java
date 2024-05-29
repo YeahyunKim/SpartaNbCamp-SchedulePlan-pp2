@@ -20,8 +20,10 @@ public class UserService {
 
     public UserResponseDto signupUser(UserRequestDto requestDto) {
         User user = new User(requestDto);
-        userRepository.save(user);
-        UserResponseDto responseDto = new UserResponseDto(user);
+        System.out.println("test: " + user.getUsername() + " " + user.getPassword());
+        User save = userRepository.save(user);
+        System.out.println("test2: " + user.getId() + " " + save.getId());
+        UserResponseDto responseDto = new UserResponseDto(save);
         return responseDto;
     }
 
@@ -46,19 +48,10 @@ public class UserService {
         return id;
     }
 
-
-
-
     //유저 찾기
     private User getUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디는 존재하지 않습니다."));
         return user;
     }
 
-
-//    public UserResponseDto checkIdExist(Long id) {
-//        Optional <User> result = userRepository.findById(id);
-//        User user = result.orElseThrow(() -> new IllegalArgumentException("해당 아이디는 존재하지 않습니다."));
-//        return new UserResponseDto(user);
-//    }
 }
