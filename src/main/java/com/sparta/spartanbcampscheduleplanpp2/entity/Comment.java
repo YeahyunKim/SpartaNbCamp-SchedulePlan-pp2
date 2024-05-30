@@ -28,5 +28,6 @@ public class Comment extends Timestamped {
 
     public Comment(CommentReqeustDto reqeustDto) {
         this.content = reqeustDto.getContent();
+        this.username = reqeustDto.getUsername();
     }
 }
