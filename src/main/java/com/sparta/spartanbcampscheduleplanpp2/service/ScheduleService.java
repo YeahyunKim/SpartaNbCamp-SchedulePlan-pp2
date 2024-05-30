@@ -18,7 +18,7 @@ public class ScheduleService {
     }
 
 
-    // =====[Create]===== 1단계 일정 작성
+    // =====[Create]===== 일정 작성
     public ScheduleResponseDto createMemo(ScheduleRequestDto requestDto) {
         //  1. schedule 객체를 생성하고, 해당 객체에 requestDto에 담긴 값들을 저장
         Schedule schedule = new Schedule(requestDto);
@@ -33,19 +33,19 @@ public class ScheduleService {
     }
 
 
-    // =====[Read]===== 2단계 선택한 일정 조회
+    // =====[Read]===== 선택한 일정 조회
     public Schedule findSchedule(Long id) {
         return getScheduleById(id);
     }
 
 
-    // =====[Read]===== 3단계 전체 일정 조회
+    // =====[Read]===== 전체 일정 조회
     public List<ScheduleResponseDto> getSchedules() {
         return scheduleRepository.findAllByOrderByCreatedAtDesc().stream().map(ScheduleResponseDto::new).toList();
     }
 
 
-    // =====[Update]===== 4단계 선택한 일정 수정
+    // =====[Update]===== 선택한 일정 수정
     @Transactional
     public ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto requestDto, String password) {
         //  1. 해당 메모가 DB에 존재하는지 확인하고, password 확인
@@ -61,7 +61,7 @@ public class ScheduleService {
     }
 
 
-    // =====[Delete]===== 5단계 선택한 일정 삭제
+    // =====[Delete]===== 선택한 일정 삭제
     public Long deleteSchedule(Long id, String password) {
         //  1. 해당 메모가 DB에 존재하는지 확인하고, password 확인
         Schedule schedule = checkPasswordWithId(id, password);
