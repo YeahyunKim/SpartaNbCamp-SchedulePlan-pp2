@@ -22,7 +22,7 @@ public class CommentService {
 
     public CommentResponseDto createComment(CommentReqeustDto reqeustDto) {
         //코멘트 예외처리 : 선택한 일정의 scheduleId를 입력받지 않은 경우
-        if (!StringUtils.hasText(reqeustDto.getScheduleId().toString())) {
+        if (reqeustDto.getScheduleId() == null) {
             throw new IllegalArgumentException("해당 아이디가 존재하지 않습니다.");
         }
 
