@@ -65,6 +65,18 @@ public class CommentService {
         return new CommentResponseDto(commentById);
     }
 
+    // =====[Delete]===== 댓글 삭제
+    public String deleteComment(Long id) {
+        //아이디 존재 여부 확인 + 선택된 코멘트 가져오기
+        Comment commentById = getCommentById(id);
+
+        commentRepository.delete(commentById);
+
+        return "CommentId: " + commentById.getId() + " 가 삭제되었습니다.";
+    }
+
+
+
     //코멘트 예외처리 : 스케쥴 아이디가 존재하는지 확인 -> 존재하면 해당 스케쥴 정보 가져오기
     public Schedule getScheduleById(CommentReqeustDto requestDto) {
         return scheduleRepository.findById(requestDto.getScheduleId())
@@ -77,13 +89,4 @@ public class CommentService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다."));
     }
 
-    // =====[Delete]===== 댓글 삭제
-    public String deleteComment(Long id) {
-        //아이디 존재 여부 확인 + 선택된 코멘트 가져오기
-        Comment commentById = getCommentById(id);
-
-        commentRepository.delete(commentById);
-
-        return "CommentId: " + commentById.getId() + " 가 삭제되었습니다.";
-    }
 }
