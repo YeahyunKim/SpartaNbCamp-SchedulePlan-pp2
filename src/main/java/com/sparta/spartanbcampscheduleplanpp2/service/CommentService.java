@@ -6,6 +6,9 @@ import com.sparta.spartanbcampscheduleplanpp2.entity.Comment;
 import com.sparta.spartanbcampscheduleplanpp2.entity.Schedule;
 import com.sparta.spartanbcampscheduleplanpp2.repository.CommentRepository;
 import com.sparta.spartanbcampscheduleplanpp2.repository.ScheduleRepository;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -66,13 +69,15 @@ public class CommentService {
     }
 
     // =====[Delete]===== 댓글 삭제
-    public String deleteComment(Long id) {
+    public ResponseEntity<String> deleteComment(Long id) {
         //아이디 존재 여부 확인 + 선택된 코멘트 가져오기
         Comment commentById = getCommentById(id);
 
         commentRepository.delete(commentById);
 
-        return "CommentId: " + commentById.getId() + " 가 삭제되었습니다.";
+        ResponseEntity<String> responseEntity = new ResponseEntity<String>("CommentId: " + commentById.getId() + " 가 삭제되었습니다.", HttpStatus.ACCEPTED);
+
+        return responseEntity;
     }
 
 
