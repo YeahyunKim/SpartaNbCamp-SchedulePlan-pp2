@@ -2,7 +2,6 @@ package com.sparta.spartanbcampscheduleplanpp2.service;
 
 import com.sparta.spartanbcampscheduleplanpp2.dto.CommentReqeustDto;
 import com.sparta.spartanbcampscheduleplanpp2.dto.CommentResponseDto;
-import com.sparta.spartanbcampscheduleplanpp2.dto.ScheduleRequestDto;
 import com.sparta.spartanbcampscheduleplanpp2.entity.Comment;
 import com.sparta.spartanbcampscheduleplanpp2.entity.Schedule;
 import com.sparta.spartanbcampscheduleplanpp2.repository.CommentRepository;
@@ -45,7 +44,8 @@ public class CommentService {
     // =====[Update]===== 댓글 수정
     @Transactional
     public CommentResponseDto updateComment(CommentReqeustDto commentReqeustDto, Long id) {
-        Comment commentById = getCommentById(commentReqeustDto, id);
+        //아이디 존재 여부 확인 + 선택된 코멘트 가져오기
+        Comment commentById = getCommentById(id);
 
         //스케줄 아이디가 존재하지 않으면 예외처리
         getScheduleById(commentReqeustDto);
@@ -72,9 +72,18 @@ public class CommentService {
     }
 
     //코멘트 예외처리 : 댓글 아이디가 존재하는지 확인 -> 존재하면 해당 댓글 정보 가져오기
-    public Comment getCommentById(CommentReqeustDto requestDto, Long id) {
+    public Comment getCommentById(Long id) {
         return commentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id=" + requestDto.getScheduleId()));
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다."));
     }
 
+    // =====[Delete]===== 댓글 삭제
+    public String deleteComment(Long id) {
+        //아이디 존재 여부 확인 + 선택된 코멘트 가져오기
+        Comment commentById = getCommentById(id);
+
+        commentRepository.delete(commentById);
+
+        return "CommentId: " + commentById.getId() + " 가 삭제되었습니다.";
+    }
 }

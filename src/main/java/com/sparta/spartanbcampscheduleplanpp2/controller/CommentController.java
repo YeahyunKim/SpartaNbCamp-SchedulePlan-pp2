@@ -15,14 +15,15 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    // =====[Create]===== 스케줄 작성
+    // =====[Create]===== 댓글 작성
     @PostMapping("/comment")
     public CommentResponseDto createComment(@RequestBody CommentReqeustDto commentReqeustDto) {
         return commentService.createComment(commentReqeustDto);
     }
 
-    @PutMapping("/comment/{id}")
-    public CommentResponseDto updateComment(@RequestBody CommentReqeustDto commentReqeustDto, @PathVariable Long id) {
-        return commentService.updateComment(commentReqeustDto, id);
+    // =====[Delete]===== 댓글 삭제
+    @DeleteMapping("/comment/{id}")
+    public String deleteComment(@PathVariable Long id) {
+        return commentService.deleteComment(id);
     }
 }
