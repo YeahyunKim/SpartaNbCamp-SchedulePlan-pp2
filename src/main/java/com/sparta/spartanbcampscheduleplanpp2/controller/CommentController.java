@@ -20,4 +20,9 @@ public class CommentController {
     public CommentResponseDto createComment(@RequestBody CommentReqeustDto commentReqeustDto) {
         return commentService.createComment(commentReqeustDto);
     }
+
+    @PutMapping("/comment/{id}")
+    public CommentResponseDto updateComment(@RequestBody CommentReqeustDto commentReqeustDto, @PathVariable Long id) {
+        return commentService.updateComment(commentReqeustDto, id);
+    }
 }

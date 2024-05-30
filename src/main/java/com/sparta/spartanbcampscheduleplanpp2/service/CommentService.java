@@ -8,6 +8,7 @@ import com.sparta.spartanbcampscheduleplanpp2.entity.Schedule;
 import com.sparta.spartanbcampscheduleplanpp2.repository.CommentRepository;
 import com.sparta.spartanbcampscheduleplanpp2.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 @Service
@@ -44,5 +45,14 @@ public class CommentService {
     public Schedule getScheduleById(CommentReqeustDto requestDto) {
         return scheduleRepository.findById(requestDto.getScheduleId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 스케줄이 존재하지 않습니다. id=" + requestDto.getScheduleId()));
+    }
+
+    @Transactional
+    public CommentResponseDto updateComment(CommentReqeustDto commentReqeustDto, Long id) {
+        Comment commentById = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id=" + commentReqeustDto.getScheduleId()));
+
+        commentById.update(commentReqeustDto);
+
+        return new CommentResponseDto(commentById);
     }
 }
