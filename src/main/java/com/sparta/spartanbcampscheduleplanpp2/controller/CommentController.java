@@ -4,8 +4,12 @@ import com.sparta.spartanbcampscheduleplanpp2.dto.CommentReqeustDto;
 import com.sparta.spartanbcampscheduleplanpp2.dto.CommentResponseDto;
 import com.sparta.spartanbcampscheduleplanpp2.entity.Schedule;
 import com.sparta.spartanbcampscheduleplanpp2.service.CommentService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -18,7 +22,7 @@ public class CommentController {
 
     // =====[Create]===== 댓글 작성
     @PostMapping("/comment")
-    public CommentResponseDto createComment(@RequestBody CommentReqeustDto commentReqeustDto) {
+    public CommentResponseDto createComment(@RequestBody @Valid CommentReqeustDto commentReqeustDto) {
         return commentService.createComment(commentReqeustDto);
     }
 

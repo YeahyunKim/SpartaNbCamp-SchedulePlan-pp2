@@ -4,6 +4,7 @@ import com.sparta.spartanbcampscheduleplanpp2.dto.ScheduleRequestDto;
 import com.sparta.spartanbcampscheduleplanpp2.dto.ScheduleResponseDto;
 import com.sparta.spartanbcampscheduleplanpp2.entity.Schedule;
 import com.sparta.spartanbcampscheduleplanpp2.service.ScheduleService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class ScheduleController {
 
     // =====[Create]===== 1단계 일정 작성
     @PostMapping("/schedule")
-    public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto createSchedule(@RequestBody @Valid ScheduleRequestDto requestDto) {
         return scheduleService.createMemo(requestDto);
     }
 
@@ -37,7 +38,7 @@ public class ScheduleController {
 
     // =====[Update]===== 4단계 선택한 일정 수정
     @PutMapping("/schedule/{id}/{password}")
-    public ScheduleResponseDto updateSchedule(@PathVariable Long id, @PathVariable String password, @RequestBody ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto updateSchedule(@PathVariable Long id, @PathVariable String password, @RequestBody @Valid ScheduleRequestDto requestDto) {
         return scheduleService.updateSchedule(id, requestDto, password);
     }
 
