@@ -22,17 +22,22 @@ public class Schedule extends Timestamped {
     @Column(nullable = false, length = 50)
     private String content;
 
+    @Column(nullable = false, length = 10)
+    private String managername;
+
     @Column(nullable = false, length = 50)
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    public Schedule(ScheduleRequestDto requestDto, User user) {
+    public Schedule(ScheduleRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.password = requestDto.getPassword();
-        this.user = user;
+        this.managername = requestDto.getManagername();
+    }
+    public void update(ScheduleRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+        this.managername = requestDto.getManagername();
+        //일정 수정이기 때문에, password 변경은 제외
     }
 }

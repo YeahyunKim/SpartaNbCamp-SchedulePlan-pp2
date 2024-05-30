@@ -1,5 +1,6 @@
 package com.sparta.spartanbcampscheduleplanpp2.entity;
 
+import com.sparta.spartanbcampscheduleplanpp2.dto.CommentReqeustDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,11 +19,14 @@ public class Comment extends Timestamped {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(nullable = false)
+    private String username;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
+
+    public Comment(CommentReqeustDto reqeustDto) {
+        this.content = reqeustDto.getContent();
+    }
 }
