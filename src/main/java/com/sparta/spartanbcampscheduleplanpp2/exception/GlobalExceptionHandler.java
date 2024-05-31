@@ -1,6 +1,7 @@
 package com.sparta.spartanbcampscheduleplanpp2.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -19,7 +20,7 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> exampleResponseValidation(MethodArgumentNotValidException e) {
+    public ResponseEntity<Map<String, String>> responseValidation(MethodArgumentNotValidException e) {
         Map<String, String> error = new HashMap<>();
         e.getAllErrors().forEach(
                 c -> {
@@ -27,6 +28,14 @@ public class GlobalExceptionHandler {
                     log.error(c.getDefaultMessage());
                 }
         );
+        return ResponseEntity.badRequest().body(error);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Map<String, String>> badResponseValidation(BadRequestException e) {
+        Map<String, String> error = new HashMap<>();
+        error.put(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
+
         return ResponseEntity.badRequest().body(error);
     }
 }
