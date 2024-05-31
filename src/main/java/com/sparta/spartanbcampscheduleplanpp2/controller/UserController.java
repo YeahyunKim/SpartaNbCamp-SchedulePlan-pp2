@@ -1,11 +1,14 @@
 package com.sparta.spartanbcampscheduleplanpp2.controller;
 
+import com.sparta.spartanbcampscheduleplanpp2.dto.LoginRequestDto;
 import com.sparta.spartanbcampscheduleplanpp2.dto.SignupRequestDto;
 import com.sparta.spartanbcampscheduleplanpp2.dto.SignupResponseDto;
 import com.sparta.spartanbcampscheduleplanpp2.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +45,11 @@ public class UserController {
     @PostMapping("/user")
     public ResponseEntity<String> signupUser(@RequestBody @Valid SignupRequestDto requestDto) {
         return userService.signupUser(requestDto);
+    }
+
+    @PostMapping("/user/login")
+    public ResponseEntity<String> loginUser(@RequestBody @Valid LoginRequestDto requestDto, HttpServletResponse res) {
+        return userService.loginUser(requestDto, res);
     }
 
     @DeleteMapping("/user/{id}")
